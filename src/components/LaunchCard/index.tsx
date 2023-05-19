@@ -24,6 +24,10 @@ const ContentWrapper = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  border-bottom: 1px solid white;
+  border-top: 1px solid white;
+  border-right: 1px solid white;
+  border-radius: 0 0 1rem 0;
   gap: 1;
   width: 100%;
 `;
