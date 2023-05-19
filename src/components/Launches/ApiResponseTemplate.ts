@@ -1,58 +1,29 @@
 type FetchResult = {
   count: number;
-  next: string | null;
+  next: string;
   previous: string | null;
   results: Result[];
 };
 
 type Result = {
-  id: number;
-  url: string;
-  slug: string;
-  name: string;
-  updates: any[];
-  type: FetchResultType;
-  description: string;
-  webcast_live: boolean;
-  location: string;
-  news_url: string | null;
-  video_url: string | null;
-  feature_image: string;
-  date: string;
-  date_precision: string | null;
-  launches: Launch[];
-  expeditions: any[];
-  spacestations: any[];
-  program: any[];
-};
-
-type FetchResultType = {
-  id: number;
-  name: string;
-};
-
-type Launch = {
   id: string;
   url: string;
-  slug: string;
   name: string;
-  status: LaunchStatus;
+  status: Status;
   last_updated: string;
   net: string;
   window_end: string;
   window_start: string;
-  net_precision?: string;
-  holdreason?: string;
-  failreason?: string;
-  hashtag: string;
+  net_precision: NetPrecision;
+  probability: number;
+  holdreason: string;
+  failreason: string;
+  hashtag: string | null;
   launch_service_provider: LaunchServiceProvider;
-  rocket: LaunchRocket;
-  mission: LaunchMission;
-  pad: LaunchPad;
   webcast_live: boolean;
   image: string;
-  infographic?: string;
-  program: LaunchProgram;
+  infographic: string | null;
+  program: Program;
   orbital_launch_attempt_count: number;
   location_launch_attempt_count: number;
   pad_launch_attempt_count: number;
@@ -63,43 +34,14 @@ type Launch = {
   agency_launch_attempt_count_year: number;
 };
 
-type LaunchProgram = {
+type Status = {
   id: number;
-  url: string;
   name: string;
+  abbrev: string;
   description: string;
-  agencies: LaunchProgramAgencies[];
-  image_url: string;
-  start_date?: string;
-  end_date?: string;
-  info_url?: string;
-  wiki_url?: string;
-  mission_patches: LaunchProgramMissionPatches;
 };
 
-type LaunchProgramAgencies = {
-  id: number;
-  url: string;
-  name: string;
-  type: string;
-};
-
-type LaunchProgramMissionPatches = {
-  id: number;
-  name: string;
-  priority: number;
-  image_url: string;
-  agency: MissionPatchesAgency;
-};
-
-type MissionPatchesAgency = {
-  id: number;
-  url: string;
-  name: string;
-  type: string;
-};
-
-type LaunchStatus = {
+type NetPrecision = {
   id: number;
   name: string;
   abbrev: string;
@@ -113,12 +55,12 @@ type LaunchServiceProvider = {
   type: string;
 };
 
-type LaunchRocket = {
+type Rocket = {
   id: number;
-  configuration: LaunchRocketConfig;
+  configuration: RocketConfiguration;
 };
 
-type LaunchRocketConfig = {
+type RocketConfiguration = {
   id: number;
   url: string;
   name: string;
@@ -127,28 +69,28 @@ type LaunchRocketConfig = {
   variant: string;
 };
 
-type LaunchMission = {
+type Mission = {
   id: number;
   name: string;
   description: string;
-  launch_designator?: string;
+  launch_designator: string | null;
   type: string;
-  orbit: LaunchMissionOrbit;
+  orbit: MissionOrbit;
 };
 
-type LaunchMissionOrbit = {
+type MissionOrbit = {
   id: number;
   name: string;
   abbrev: string;
 };
 
-type LaunchPad = {
+type Pad = {
   id: number;
   url: string;
-  agency_id?: number;
+  agency_id: number;
   name: string;
-  info_url?: string;
-  wiki_url?: string;
+  info_url: string | null;
+  wiki_url: string;
   map_url: string;
   latitude: string;
   longitude: string;
@@ -167,5 +109,41 @@ type PadLocation = {
   map_image: string;
   timezone_name: string;
   total_launch_count: number;
-  total_landing_count: 0;
+  total_landing_count: number;
+};
+
+type Program = {
+  id: number;
+  url: string;
+  name: string;
+  description: string;
+  agencies: ProgramAgencies[];
+  image_url: string;
+  start_date: string;
+  end_date: string | null;
+  info_url: string;
+  wiki_url: string;
+  mission_patches: ProgramMissionPatches[];
+};
+
+type ProgramAgencies = {
+  id: number;
+  url: string;
+  name: string;
+  type: string;
+};
+
+type ProgramMissionPatches = {
+  id: number;
+  name: string;
+  priority: number;
+  image_url: string;
+  agency: MissionPatchesAgency;
+};
+
+type MissionPatchesAgency = {
+  id: number;
+  url: string;
+  name: string;
+  type: string;
 };

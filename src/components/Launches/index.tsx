@@ -5,10 +5,13 @@ import {
   useQuery,
 } from "@tanstack/react-query";
 import "./ApiResponseTemplate";
+import Card from "../LaunchCard";
 
 const StyledLayout = styled.section`
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   gap: 1rem;
   width: 100vw;
 `;
@@ -28,9 +31,9 @@ function GetLaunches() {
   const { isLoading, error, data } = useQuery({
     queryKey: ["repoData"],
     queryFn: () =>
-      fetch("https://ll.thespacedevs.com/2.2.0/event/?format=json").then(
-        (res) => res.json()
-      ),
+      fetch(
+        "https://ll.thespacedevs.com/2.2.0/launch/upcoming/?format=json"
+      ).then((res) => res.json()),
   });
 
   if (isLoading) return <div>Loading...</div>;
@@ -39,7 +42,19 @@ function GetLaunches() {
 
   const res: FetchResult = data;
 
-  return <pre>{JSON.stringify(res.results, null, 2)}</pre>;
+  const Cards: any = [];
+
+  res.results.forEach((result) => {
+    Cards.push(
+      <Card
+        name={result.name}
+        image={result.image}
+        start_date={result.window_start}
+        end_date={result.window_end}
+      />
+    );
+  });
+  return Cards;
 }
 
 export default Launches;
