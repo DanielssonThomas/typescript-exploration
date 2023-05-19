@@ -1,5 +1,6 @@
 import "./App.css";
 import { styled } from "styled-components";
+import Launches from "./components/Launches";
 
 const StyledHeader = styled.header`
   display: flex;
@@ -17,6 +18,7 @@ function App() {
       <StyledHeader>
         <StyledHeading>Typescript-exploration</StyledHeading>
       </StyledHeader>
+      <Launches />
     </>
   );
 }
