@@ -4,12 +4,69 @@ type FetchResult = {
   previous: string | null;
   results: Result[];
 };
+
 type FetchSingleResult = {
-  count: number;
-  next: string;
-  previous: string | null;
-  result: Result;
-}
+  id: string;
+  url: string;
+  slug: string;
+  flightclub_url: string | null;
+  r_spacex_api_id: string | null;
+  name: string;
+  status: Status;
+  updates: Updates[];
+  net: string;
+  net_precision: NetPrecision;
+  window_end: string;
+  window_start: string;
+  probability: number;
+  holdreason: string;
+  failreason: string;
+  hashtag: string | null;
+  launch_service_provider: LaunchServiceProvider;
+  rocket: Rocket;
+  mission: Mission;
+  pad: Pad;
+  infoURLs: InfoURL[];
+  vidURLS: VidURL[];
+  webcast_live: false;
+  image: string;
+  infographic: string | null;
+  program: Program[];
+  orbital_launch_attempt_count: number;
+  location_launch_attempt_count: number;
+  pad_launch_attempt_count: number;
+  agency_launch_attempt_count: number;
+  orbital_launch_attempt_count_year: number;
+  location_launch_attempt_count_year: number;
+  pad_launch_attempt_count_year: number;
+  agency_launch_attempt_count_year: number;
+  mission_patches: ProgramMissionPatches[];
+};
+
+type InfoURL = {
+  priority: number;
+  title: string;
+  description: string;
+  feature_image: string | null;
+  url: string;
+};
+
+type VidURL = {
+  priority: number;
+  title: string;
+  description: string;
+  feature_image: string | null;
+  url: string;
+};
+
+type Updates = {
+  id: number;
+  profile_image: string;
+  comment: string;
+  info_url: string;
+  created_by: string;
+  created_on: string;
+};
 
 type Result = {
   id: string;
