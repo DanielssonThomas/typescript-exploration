@@ -12,7 +12,7 @@ const StyledLayout = styled.section`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
+  gap: 3rem;
   width: 100vw;
 `;
 

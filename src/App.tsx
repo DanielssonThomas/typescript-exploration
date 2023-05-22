@@ -9,7 +9,7 @@ const StyledHeader = styled.header`
 `;
 
 const StyledHeading = styled.h1`
-  font-size: xx-large;
+  font-size: 56px;
 `;
 
 function App() {
