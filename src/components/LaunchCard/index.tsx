@@ -19,7 +19,7 @@ const Layout = styled.div`
 `;
 
 const Image = styled.img`
-  width: 50%;
+  width: 30%;
   height: 100%;
   object-fit: cover;
   object-position: center;
@@ -28,14 +28,16 @@ const Image = styled.img`
 `;
 
 const ContentWrapper = styled.section`
-  width: 50%;
-  padding-left: 10px;
+  width: 70%;
+  padding-left: 20px;
   position: relative;
 `;
 
 const Title = styled.h2`
   margin: 0;
-  font-size: 32px;
+  font-size: 42px;
+  line-height: 1;
+  padding-bottom: 10px;
   font-weight: bold;
 `;
 
