@@ -51,6 +51,7 @@ function GetLaunches() {
         image={result.image}
         start_date={result.window_start}
         end_date={result.window_end}
+        id={result.id}
       />
     );
   });

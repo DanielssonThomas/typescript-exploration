@@ -4,6 +4,12 @@ type FetchResult = {
   previous: string | null;
   results: Result[];
 };
+type FetchSingleResult = {
+  count: number;
+  next: string;
+  previous: string | null;
+  result: Result;
+}
 
 type Result = {
   id: string;

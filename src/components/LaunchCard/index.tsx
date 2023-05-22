@@ -5,6 +5,7 @@ type CardTemplate = {
   image: string;
   start_date: string;
   end_date: string;
+  id: string;
 };
 
 const Layout = styled.div`
@@ -52,7 +53,9 @@ const Card = (props: CardTemplate) => {
         <Title>{props.name}</Title>
         <Description>
           <div>Window start date: {props.start_date}</div>
-          <button>Read more</button>
+          <a href={`launch/${props.id}`}>
+            <button>Read more</button>
+          </a>
         </Description>
       </ContentWrapper>
     </Layout>
