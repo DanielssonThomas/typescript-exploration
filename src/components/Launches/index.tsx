@@ -32,7 +32,7 @@ function GetLaunches() {
     queryKey: ["repoData"],
     queryFn: () =>
       fetch(
-        "https://ll.thespacedevs.com/2.2.0/launch/upcoming/?format=json"
+        "https://lldev.thespacedevs.com/2.2.0/launch/upcoming/?format=json"
       ).then((res) => res.json()),
   });
 
