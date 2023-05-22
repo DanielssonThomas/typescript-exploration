@@ -47,11 +47,13 @@ function GetLaunches() {
   res.results.forEach((result) => {
     Cards.push(
       <Card
+        key={result.id}
         name={result.name}
         image={result.image}
         start_date={result.window_start}
         end_date={result.window_end}
         id={result.id}
+        provider={result.launch_service_provider.name}
       />
     );
   });
