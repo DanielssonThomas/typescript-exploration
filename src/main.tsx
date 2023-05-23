@@ -1,11 +1,11 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
-import './index.css'
-import LaunchInfoPage from './components/LaunchInfoPage/launchInfoPage.tsx'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App.tsx";
+import "./index.css";
+import LaunchInfoPage from "./pages/LaunchInfoPage.tsx";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <Router>
       <Routes>
@@ -13,6 +13,5 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
         <Route path="/launch/:id" element={<LaunchInfoPage />} />
       </Routes>
     </Router>
-  </React.StrictMode>,
-  
-)
+  </React.StrictMode>
+);

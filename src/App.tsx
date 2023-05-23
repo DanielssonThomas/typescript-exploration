@@ -5,7 +5,7 @@ import Header from "./components/Header";
 function App() {
   return (
     <>
-      <Header Heading="Typescript-exploration" />
+      <Header Heading="Typescript-exploration" BackBtn={false} />
       <Launches />
     </>
   );

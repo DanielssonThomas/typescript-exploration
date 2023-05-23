@@ -5,6 +5,7 @@ import {
 } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { styled } from "styled-components";
+import Header from "../components/Header";
 
 const Image = styled.img`
   width: 20vw;
@@ -40,9 +41,11 @@ const Button = styled.button`
 export default function LaunchInfoPage() {
   const queryClient = new QueryClient();
   return (
-    <QueryClientProvider client={queryClient}>
-      <GetLaunch />
-    </QueryClientProvider>
+    <>
+      <QueryClientProvider client={queryClient}>
+        <GetLaunch />
+      </QueryClientProvider>
+    </>
   );
 }
 
@@ -63,12 +66,9 @@ function GetLaunch() {
   const res: FetchSingleResult = data;
   console.log(res);
   return (
-    <div>
-      <Return href="/">
-        <Button>Return</Button>
-      </Return>
-      <h1>{res.name}</h1>
+    <>
+      <Header Heading={res.name} BackBtn={true} />
       <Image src={res.image} alt={res.name} />
-    </div>
+    </>
   );
 }
