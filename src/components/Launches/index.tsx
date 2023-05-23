@@ -14,6 +14,7 @@ const StyledLayout = styled.section`
   justify-content: center;
   gap: 3rem;
   width: 100vw;
+  padding-bottom: 50px;
 `;
 
 const Launches = () => {

@@ -19,7 +19,7 @@ const Layout = styled.div`
 `;
 
 const Image = styled.img`
-  width: 50%;
+  width: 30%;
   height: 100%;
   object-fit: cover;
   object-position: center;
@@ -28,14 +28,16 @@ const Image = styled.img`
 `;
 
 const ContentWrapper = styled.section`
-  width: 50%;
-  padding-left: 10px;
+  width: 70%;
+  padding-left: 15px;
   position: relative;
 `;
 
 const Title = styled.h2`
   margin: 0;
-  font-size: 32px;
+  font-size: 42px;
+  line-height: 1;
+  padding-bottom: 10px;
   font-weight: bold;
 `;
 
@@ -46,8 +48,8 @@ const ReadMore = styled.a`
   position: absolute;
   bottom: 0px;
   left: 50%;
-  transform: translateX(-49%);
-  width: 98%;
+  transform: translateX(-49.5%);
+  width: 99%;
 `;
 const Button = styled.button`
   width: 100%;
@@ -64,6 +66,7 @@ const Button = styled.button`
   transition: .2s ease;
   &:hover{
     background-color: #83d6d4;
+    cursor: pointer;
   }
 `;
 
@@ -74,8 +77,8 @@ const Card = (props: CardTemplate) => {
       <ContentWrapper>
         <Title>{props.name}</Title>
         <Description>
-          <div>Window start date: {props.start_date}</div>
           <div>Launch service provider: {props.provider}</div>
+          <div>Window start date: {props.start_date}</div>
         </Description>
           <ReadMore href={`launch/${props.id}`}>
             <Button>More Information</Button>
