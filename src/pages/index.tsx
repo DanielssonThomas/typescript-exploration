@@ -46,14 +46,14 @@ const Button = styled.button`
 
 function GetLaunches() {
   const [selectedProvider, setSelectedProvider] = useState("");
+
   const { isLoading, error, data } = useQuery({
-    queryKey: ["repoData"],
+    queryKey: ["repoData", selectedProvider],
     queryFn: () =>
       fetch(
-        `https://lldev.thespacedevs.com/2.2.0/launch/upcoming/?format=json&search=${selectedProvider}`
+        `https://lldev.thespacedevs.com/2.2.0/launch/upcoming/?format=json`
       ).then((res) => res.json()),
   });
-
 
   if (isLoading) return <div>Loading...</div>;
 
@@ -61,29 +61,30 @@ function GetLaunches() {
 
   const res: FetchResult = data;
 
-
-  
-  
- 
   let allProviders: string[] = [];
 
   res.results.forEach((result) => {
-    if (!allProviders.includes(result.launch_service_provider.name)) {
+    if (
+      result.launch_service_provider.name &&
+      !allProviders.includes(result.launch_service_provider.name)
+    ) {
       allProviders.push(result.launch_service_provider.name);
     }
   });
+
+  const handleProviderChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedProvider(e.target.value);
+  };
 
   const filteredResults = res.results.filter(
     (result) =>
       selectedProvider === "" ||
       result.launch_service_provider.name === selectedProvider
   );
-  
 
-  
   const Cards: any = [];
 
-  res.results.forEach((result) => {
+  filteredResults.forEach((result) => {
     Cards.push(
       <Card
         key={result.id}
@@ -96,9 +97,7 @@ function GetLaunches() {
       />
     );
   });
-  const handleProviderChange = (e:any) => {
-    setSelectedProvider(e.target.value);
-  };
+
   return (
     <div>
       <select value={selectedProvider} onChange={handleProviderChange}>
@@ -113,6 +112,11 @@ function GetLaunches() {
     </div>
   );
 }
+
+
+
+
+
 
 const Launches = () => {
   const queryClient = new QueryClient();
