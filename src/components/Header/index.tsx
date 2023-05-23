@@ -41,20 +41,33 @@ const Button = styled.button`
   }
 `;
 
+const HeaderShadowing = styled.div`
+  position: absolute;
+  top: 0;
+  width: 100vw;
+  height: 12vh;
+  background-color: black;
+  opacity: 0.4;
+  z-index: -1;
+`;
+
 const Header = (props: Header) => {
-  const RenderBackBtn = () => {
+  const RenderBtnAndShadow = () => {
     if (props.BackBtnVisable) {
       return (
-        <Return href="/">
-          <Button>Back</Button>
-        </Return>
+        <>
+          <HeaderShadowing />
+          <Return href="/">
+            <Button>Back</Button>
+          </Return>
+        </>
       );
     }
   };
 
   return (
     <HeaderWrapper>
-      {RenderBackBtn()}
+      {RenderBtnAndShadow()}
       <StyledHeading>{props.Heading}</StyledHeading>
     </HeaderWrapper>
   );

@@ -20,6 +20,10 @@ const Image = styled.img`
   object-position: center;
   position: absolute;
   top: 0;
+  left: 0;
+  width: 40%;
+  height: 100vh;
+  z-index: -2;
 `;
 
 const Main = styled.main`
@@ -27,13 +31,25 @@ const Main = styled.main`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  position: relative;
   width: 100vw;
-  height: 92vh;
   overflow: hidden;
 `;
 
-export default function LaunchInfoPage() {
+const TopContentWrapper = styled.section`
+  display: flex;
+  justify-content: space-between;
+  width: 90vw;
+  height: 60vh;
+`;
+
+const TopContentTextWrapper = styled.div`
+  margin-left: 40%;
+  padding: 1rem;
+`;
+
+const QuotedTextWrapping = styled.div``;
+
+export default function LaunchInfo() {
   const queryClient = new QueryClient();
   return (
     <>
@@ -64,7 +80,13 @@ function GetLaunch() {
     <>
       <Header Heading={res.name} BackBtnVisable={true} />
       <Main>
-        <Image src={res.image} alt={res.name} />
+        <TopContentWrapper>
+          <Image src={res.image} alt={res.name} />
+          <TopContentTextWrapper>
+            <h2>Description:</h2>
+            <q>{res.mission.description}</q>
+          </TopContentTextWrapper>
+        </TopContentWrapper>
       </Main>
     </>
   );
