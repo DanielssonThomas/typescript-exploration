@@ -9,7 +9,7 @@ const HeaderWrapper = styled.header`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 8vh;
+  height: 12vh;
 `;
 
 const StyledHeading = styled.h1`
@@ -18,8 +18,8 @@ const StyledHeading = styled.h1`
 
 const Return = styled.a`
   position: fixed;
-  top: 10px;
-  left: 10px;
+  top: 25px;
+  left: 25px;
   width: 99%;
 `;
 const Button = styled.button`

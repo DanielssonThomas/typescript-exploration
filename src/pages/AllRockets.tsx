@@ -4,8 +4,9 @@ import {
   QueryClientProvider,
   useQuery,
 } from "@tanstack/react-query";
-import "./ApiResponseTemplate";
-import Card from "../LaunchCard";
+import "../components/Launches/ApiResponseTemplate";
+import Card from "../components/LaunchCard";
+import Header from "../components/Header";
 
 const StyledLayout = styled.section`
   display: flex;
@@ -14,13 +15,40 @@ const StyledLayout = styled.section`
   justify-content: center;
   gap: 3rem;
   width: 100vw;
-  padding-bottom: 50px;
+  padding-bottom: 80px;
+`;
+
+const Return = styled.a`
+  position: absolute;
+  width: 40%;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+`;
+const Button = styled.button`
+  width: 100%;
+  height: 40px;
+  padding: 10px;
+  background-color: #34aba7;
+  border-radius: 0 50px 0 50px;
+  border: none;
+  color: black;
+  outline: inherit;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 0;
+  transition: 0.2s ease;
+  &:hover {
+    background-color: #83d6d4;
+    cursor: pointer;
+  }
 `;
 
 const Launches = () => {
   const queryClient = new QueryClient();
   return (
     <QueryClientProvider client={queryClient}>
+        <Header Heading="More Rockets" BackBtnVisable={true} />
       <StyledLayout>
         <GetLaunches />
       </StyledLayout>
@@ -33,7 +61,7 @@ function GetLaunches() {
     queryKey: ["repoData"],
     queryFn: () =>
       fetch(
-        "https://lldev.thespacedevs.com/2.2.0/launch/upcoming/?format=json"
+        "https://lldev.thespacedevs.com/2.2.0/launch/upcoming/?format=json&limit=100&offset=10"
       ).then((res) => res.json()),
   });
 
