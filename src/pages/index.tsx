@@ -6,6 +6,7 @@ import {
 } from "@tanstack/react-query";
 import "../components/Launches/ApiResponseTemplate";
 import Card from "../components/LaunchCard";
+import { useState, useEffect } from "react";
 
 const StyledLayout = styled.section`
   display: flex;
@@ -43,20 +44,6 @@ const Button = styled.button`
   }
 `;
 
-const Launches = () => {
-  const queryClient = new QueryClient();
-  return (
-    <QueryClientProvider client={queryClient}>
-      <StyledLayout>
-        <GetLaunches />
-      </StyledLayout>
-      <MoreCards href="allRockets">
-        <Button>More Rockets</Button>
-      </MoreCards>
-    </QueryClientProvider>
-  );
-};
-
 function GetLaunches() {
   const { isLoading, error, data } = useQuery({
     queryKey: ["repoData"],
@@ -72,6 +59,17 @@ function GetLaunches() {
 
   const res: FetchResult = data;
 
+
+  
+  let providers: string[] = [];
+  res.results.forEach((result) => {
+    if (!providers.includes(result.launch_service_provider.name)) {
+      providers.push(result.launch_service_provider.name);
+    }
+  });
+
+
+  
   const Cards: any = [];
 
   res.results.forEach((result) => {
@@ -89,5 +87,21 @@ function GetLaunches() {
   });
   return Cards;
 }
+
+const Launches = () => {
+  // console.log(providers);
+  const queryClient = new QueryClient();
+  return (
+    <QueryClientProvider client={queryClient}>
+      <StyledLayout>
+        <GetLaunches />
+      </StyledLayout>
+      <MoreCards href="allRockets">
+        <Button>More Rockets</Button>
+      </MoreCards>
+    </QueryClientProvider>
+  );
+};
+
 
 export default Launches;
