@@ -7,35 +7,30 @@ import { useParams } from "react-router-dom";
 import { styled } from "styled-components";
 import Header from "../components/Header";
 
+const EventMessage = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 8vh;
+  width: 100vw;
+`;
+
 const Image = styled.img`
-  width: 20vw;
-  height: 15vh;
   object-fit: cover;
   object-position: center;
+  position: absolute;
+  top: 0;
 `;
-const Return = styled.a`
-  position: fixed;
-  top: 10px;
-  left: 10px;
-  width: 99%;
-`;
-const Button = styled.button`
-  width: 10%;
-  height: 40px;
-  padding: 10px;
-  background-color: #34aba7;
-  border-radius: 0 50px 0 50px;
-  border: none;
-  color: black;
-  outline: inherit;
-  font-weight: bold;
-  font-size: 24px;
-  line-height: 0;
-  transition: 0.2s ease;
-  &:hover {
-    background-color: #83d6d4;
-    cursor: pointer;
-  }
+
+const Main = styled.main`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100vw;
+  height: 92vh;
+  overflow: hidden;
 `;
 
 export default function LaunchInfoPage() {
@@ -59,16 +54,18 @@ function GetLaunch() {
       ).then((res) => res.json()),
   });
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <EventMessage>Loading...</EventMessage>;
 
-  if (error) return <div>An error has occurred</div>;
+  if (error) return <EventMessage>An error has occurred</EventMessage>;
 
   const res: FetchSingleResult = data;
   console.log(res);
   return (
     <>
-      <Header Heading={res.name} BackBtn={true} />
-      <Image src={res.image} alt={res.name} />
+      <Header Heading={res.name} BackBtnVisable={true} />
+      <Main>
+        <Image src={res.image} alt={res.name} />
+      </Main>
     </>
   );
 }

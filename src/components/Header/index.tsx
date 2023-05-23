@@ -2,7 +2,7 @@ import { styled } from "styled-components";
 
 type Header = {
   Heading: string;
-  BackBtn: boolean;
+  BackBtnVisable: boolean;
 };
 
 const HeaderWrapper = styled.header`
@@ -43,7 +43,7 @@ const Button = styled.button`
 
 const Header = (props: Header) => {
   const RenderBackBtn = () => {
-    if (props.BackBtn) {
+    if (props.BackBtnVisable) {
       return (
         <Return href="/">
           <Button>Back</Button>
