@@ -99,7 +99,7 @@ function GetLaunches() {
   });
 
   return (
-    <div>
+    <StyledLayout>
       <select value={selectedProvider} onChange={handleProviderChange}>
         <option value="">All Providers</option>
         {allProviders.map((provider) => (
@@ -109,7 +109,10 @@ function GetLaunches() {
         ))}
       </select>
       {Cards}
-    </div>
+      <MoreCards href="allRockets">
+        <Button>More Rockets</Button>
+      </MoreCards>
+    </StyledLayout>
   );
 }
 
@@ -122,12 +125,7 @@ const Launches = () => {
   const queryClient = new QueryClient();
   return (
     <QueryClientProvider client={queryClient}>
-      <StyledLayout>
         <GetLaunches />
-      </StyledLayout>
-      <MoreCards href="allRockets">
-        <Button>More Rockets</Button>
-      </MoreCards>
     </QueryClientProvider>
   );
 };

@@ -6,6 +6,7 @@ import {
 } from "@tanstack/react-query";
 import "../components/Launches/ApiResponseTemplate";
 import Card from "../components/LaunchCard";
+import { useState, useEffect } from "react";
 import Header from "../components/Header";
 
 const StyledLayout = styled.section`
@@ -18,26 +19,46 @@ const StyledLayout = styled.section`
   padding-bottom: 80px;
 `;
 
-const Launches = () => {
-  const queryClient = new QueryClient();
-  return (
-    <QueryClientProvider client={queryClient}>
-      <Header Heading="More Rockets" BackBtnVisable={true} />
-      <StyledLayout>
-        <GetLaunches />
-      </StyledLayout>
-    </QueryClientProvider>
-  );
-};
+const MoreCards = styled.a`
+  position: absolute;
+  width: 40%;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+`;
+const Button = styled.button`
+  width: 100%;
+  height: 40px;
+  padding: 10px;
+  background-color: #34aba7;
+  border-radius: 0 50px 0 50px;
+  border: none;
+  color: black;
+  outline: inherit;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 0;
+  transition: 0.2s ease;
+  &:hover {
+    background-color: #83d6d4;
+    cursor: pointer;
+  }
+`;
 
 function GetLaunches() {
+  const [selectedProvider, setSelectedProvider] = useState("");
+
+
   const { isLoading, error, data } = useQuery({
-    queryKey: ["repoData"],
+    queryKey: ["repoData", selectedProvider],
     queryFn: () =>
       fetch(
-        "https://lldev.thespacedevs.com/2.2.0/launch/upcoming/?format=json&limit=100&offset=10"
+        `https://lldev.thespacedevs.com/2.2.0/launch/upcoming/?format=json&limit=100&offset=10`
       ).then((res) => res.json()),
   });
+
+  
+
 
   if (isLoading) return <div>Loading...</div>;
 
@@ -45,9 +66,34 @@ function GetLaunches() {
 
   const res: FetchResult = data;
 
-  const Cards: any = [];
+  let allProviders: string[] = [];
 
   res.results.forEach((result) => {
+    if (
+      result.launch_service_provider.name &&
+      !allProviders.includes(result.launch_service_provider.name)
+    ) {
+      allProviders.push(result.launch_service_provider.name);
+    }
+  });
+
+
+  const handleProviderChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedProvider(e.target.value);
+  };
+
+
+  const filteredResults = res.results.filter(
+    (result) =>
+      selectedProvider === "" ||
+      result.launch_service_provider.name.includes(selectedProvider)
+  );
+  
+
+
+  const Cards: any = [];
+
+  filteredResults.forEach((result) => {
     Cards.push(
       <Card
         key={result.id}
@@ -60,7 +106,38 @@ function GetLaunches() {
       />
     );
   });
-  return Cards;
+
+
+  return (
+    <StyledLayout>
+      <Header Heading="Typescript-exploration" BackBtnVisable={true} />
+      <select value={selectedProvider} onChange={handleProviderChange}>
+        <option value="">All Providers</option>
+        {allProviders.map((provider) => (
+          <option key={provider} value={provider}>
+            {provider}
+          </option>
+        ))}
+      </select>
+      {Cards}
+    </StyledLayout>
+  );
 }
+
+
+
+
+
+
+
+const Launches = () => {
+  const queryClient = new QueryClient();
+  return (
+    <QueryClientProvider client={queryClient}>
+        <GetLaunches />
+    </QueryClientProvider>
+  );
+};
+
 
 export default Launches;
