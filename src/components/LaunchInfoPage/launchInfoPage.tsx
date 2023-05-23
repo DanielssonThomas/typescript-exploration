@@ -1,13 +1,12 @@
 import {
-    QueryClient,
-    QueryClientProvider,
-    useQuery,
-  } from "@tanstack/react-query";
-  import { useParams } from 'react-router-dom';
-  import { styled } from "styled-components";
+  QueryClient,
+  QueryClientProvider,
+  useQuery,
+} from "@tanstack/react-query";
+import { useParams } from "react-router-dom";
+import { styled } from "styled-components";
 
-
-  const Image = styled.img`
+const Image = styled.img`
   width: 20vw;
   height: 15vh;
   object-fit: cover;
@@ -31,8 +30,8 @@ const Button = styled.button`
   font-weight: bold;
   font-size: 24px;
   line-height: 0;
-  transition: .2s ease;
-  &:hover{
+  transition: 0.2s ease;
+  &:hover {
     background-color: #83d6d4;
     cursor: pointer;
   }
@@ -61,16 +60,15 @@ function GetLaunch() {
 
   if (error) return <div>An error has occurred</div>;
 
-
-      const res: FetchSingleResult = data;
-      console.log(res);
-      return (
-        <div>
-          <Return href="/">
-            <Button>Return</Button>
-          </Return>
-            <h1>{res.name}</h1>
-            <Image src={res.image} alt={res.name} />
-        </div>
-      );
+  const res: FetchSingleResult = data;
+  console.log(res);
+  return (
+    <div>
+      <Return href="/">
+        <Button>Return</Button>
+      </Return>
+      <h1>{res.name}</h1>
+      <Image src={res.image} alt={res.name} />
+    </div>
+  );
 }
