@@ -45,13 +45,15 @@ const Button = styled.button`
 `;
 
 function GetLaunches() {
+  const [selectedProvider, setSelectedProvider] = useState("");
   const { isLoading, error, data } = useQuery({
     queryKey: ["repoData"],
     queryFn: () =>
       fetch(
-        "https://lldev.thespacedevs.com/2.2.0/launch/upcoming/?format=json"
+        `https://lldev.thespacedevs.com/2.2.0/launch/upcoming/?format=json&search=${selectedProvider}`
       ).then((res) => res.json()),
   });
+
 
   if (isLoading) return <div>Loading...</div>;
 
@@ -61,13 +63,22 @@ function GetLaunches() {
 
 
   
-  let providers: string[] = [];
+  
+ 
+  let allProviders: string[] = [];
+
   res.results.forEach((result) => {
-    if (!providers.includes(result.launch_service_provider.name)) {
-      providers.push(result.launch_service_provider.name);
+    if (!allProviders.includes(result.launch_service_provider.name)) {
+      allProviders.push(result.launch_service_provider.name);
     }
   });
 
+  const filteredResults = res.results.filter(
+    (result) =>
+      selectedProvider === "" ||
+      result.launch_service_provider.name === selectedProvider
+  );
+  
 
   
   const Cards: any = [];
@@ -85,11 +96,25 @@ function GetLaunches() {
       />
     );
   });
-  return Cards;
+  const handleProviderChange = (e:any) => {
+    setSelectedProvider(e.target.value);
+  };
+  return (
+    <div>
+      <select value={selectedProvider} onChange={handleProviderChange}>
+        <option value="">All Providers</option>
+        {allProviders.map((provider) => (
+          <option key={provider} value={provider}>
+            {provider}
+          </option>
+        ))}
+      </select>
+      {Cards}
+    </div>
+  );
 }
 
 const Launches = () => {
-  // console.log(providers);
   const queryClient = new QueryClient();
   return (
     <QueryClientProvider client={queryClient}>
