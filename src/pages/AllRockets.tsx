@@ -18,37 +18,11 @@ const StyledLayout = styled.section`
   padding-bottom: 80px;
 `;
 
-const Return = styled.a`
-  position: absolute;
-  width: 40%;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-`;
-const Button = styled.button`
-  width: 100%;
-  height: 40px;
-  padding: 10px;
-  background-color: #34aba7;
-  border-radius: 0 50px 0 50px;
-  border: none;
-  color: black;
-  outline: inherit;
-  font-weight: bold;
-  font-size: 24px;
-  line-height: 0;
-  transition: 0.2s ease;
-  &:hover {
-    background-color: #83d6d4;
-    cursor: pointer;
-  }
-`;
-
 const Launches = () => {
   const queryClient = new QueryClient();
   return (
     <QueryClientProvider client={queryClient}>
-        <Header Heading="More Rockets" BackBtnVisable={true} />
+      <Header Heading="More Rockets" BackBtnVisable={true} />
       <StyledLayout>
         <GetLaunches />
       </StyledLayout>

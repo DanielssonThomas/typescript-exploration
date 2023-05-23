@@ -6,7 +6,6 @@ import {
 } from "@tanstack/react-query";
 import "../components/Launches/ApiResponseTemplate";
 import Card from "../components/LaunchCard";
-import { useState, useEffect } from "react";
 
 const StyledLayout = styled.section`
   display: flex;
@@ -59,8 +58,6 @@ function GetLaunches() {
 
   const res: FetchResult = data;
 
-
-  
   let providers: string[] = [];
   res.results.forEach((result) => {
     if (!providers.includes(result.launch_service_provider.name)) {
@@ -68,8 +65,6 @@ function GetLaunches() {
     }
   });
 
-
-  
   const Cards: any = [];
 
   res.results.forEach((result) => {
@@ -102,6 +97,5 @@ const Launches = () => {
     </QueryClientProvider>
   );
 };
-
 
 export default Launches;
