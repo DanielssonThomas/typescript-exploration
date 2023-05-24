@@ -9,6 +9,14 @@ import Card from "../components/LaunchCard";
 import { useState } from "react";
 import Header from "../components/Header";
 
+const EventMessage = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 8vh;
+  width: 100vw;
+`;
+
 const StyledLayout = styled.section`
   display: flex;
   flex-direction: column;
@@ -30,9 +38,9 @@ function GetLaunches() {
       ).then((res) => res.json()),
   });
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <EventMessage>Loading...</EventMessage>;
 
-  if (error) return <div>An error has occurred</div>;
+  if (error) return <EventMessage>An error has occurred</EventMessage>;
 
   const res: FetchResult = data;
 
