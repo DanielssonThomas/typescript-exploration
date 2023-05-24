@@ -13,7 +13,7 @@ type FetchSingleResult = {
   r_spacex_api_id: string | null;
   name: string;
   status: Status;
-  updates: Updates[];
+  updates: Update[];
   net: string;
   net_precision: NetPrecision;
   window_end: string;
@@ -59,7 +59,7 @@ type VidURL = {
   url: string;
 };
 
-type Updates = {
+type Update = {
   id: number;
   profile_image: string;
   comment: string;

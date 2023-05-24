@@ -6,6 +6,7 @@ import {
 import { useParams } from "react-router-dom";
 import { styled } from "styled-components";
 import Header from "../components/Header";
+import UpdateCard from "../components/UpdateCard";
 
 const EventMessage = styled.div`
   display: flex;
@@ -94,6 +95,29 @@ const TableDataType = styled.td`
   border-bottom: 1px solid white;
 `;
 
+const UpdatesWrapper = styled.section`
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  height: auto;
+  background-color: #242424;
+`;
+
+const UpdatesContainer = styled.div`
+  width: 92vw;
+`;
+
+const UpdatesH2 = styled.h2`
+  font-size: xx-large;
+  margin-left: 1rem;
+`;
+
+const UpdatesLayout = styled.section`
+  display: flex;
+  flex-wrap: wrap;
+  width: 90vw;
+`;
+
 export default function LaunchInfo() {
   const queryClient = new QueryClient();
   return (
@@ -121,6 +145,25 @@ function GetLaunch() {
 
   const res: FetchSingleResult = data;
   console.log(res);
+
+  const UpdateCards: any = [];
+  const RenderUpdateCards = () => {
+    res.updates.forEach((update) => {
+      UpdateCards.push(
+        <UpdateCard
+          id={update.id}
+          profile_image={update.profile_image}
+          comment={update.comment}
+          created_by={update.created_by}
+          created_on={update.created_on}
+          info_url={update.info_url}
+        />
+      );
+
+      return UpdateCards;
+    });
+  };
+
   return (
     <>
       <Header Heading={res.name} BackBtnVisable={true} />
@@ -279,8 +322,42 @@ function GetLaunch() {
                 </TableRow>
               </tbody>
             </Table>
+
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableHeader>Agency</TableHeader>
+                </TableRow>
+              </TableHead>
+
+              <tbody>
+                <TableRow>
+                  <TableDataType>Name</TableDataType>
+                  <TableData>{res.launch_service_provider.name}</TableData>
+                </TableRow>
+                <TableRow>
+                  <TableDataType>Launch attempts</TableDataType>
+                  <TableData>{res.agency_launch_attempt_count}</TableData>
+                </TableRow>
+                <TableRow>
+                  <TableDataType>Launch attempts this year</TableDataType>
+                  <TableData>{res.agency_launch_attempt_count_year}</TableData>
+                </TableRow>
+              </tbody>
+            </Table>
           </DetailsWrapper>
         </DetailsContainer>
+
+        <UpdatesWrapper>
+          <UpdatesContainer>
+            <UpdatesH2>Updates</UpdatesH2>
+
+            <UpdatesLayout>
+              {RenderUpdateCards()}
+              {UpdateCards}
+            </UpdatesLayout>
+          </UpdatesContainer>
+        </UpdatesWrapper>
       </Main>
     </>
   );
