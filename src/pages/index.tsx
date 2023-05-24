@@ -6,7 +6,7 @@ import {
 } from "@tanstack/react-query";
 import "../components/Launches/ApiResponseTemplate";
 import Card from "../components/LaunchCard";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 const StyledLayout = styled.section`
   display: flex;
@@ -116,19 +116,13 @@ function GetLaunches() {
   );
 }
 
-
-
-
-
-
 const Launches = () => {
   const queryClient = new QueryClient();
   return (
     <QueryClientProvider client={queryClient}>
-        <GetLaunches />
+      <GetLaunches />
     </QueryClientProvider>
   );
 };
-
 
 export default Launches;

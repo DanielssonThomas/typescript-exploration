@@ -6,7 +6,7 @@ import {
 } from "@tanstack/react-query";
 import "../components/Launches/ApiResponseTemplate";
 import Card from "../components/LaunchCard";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Header from "../components/Header";
 
 const StyledLayout = styled.section`
@@ -19,10 +19,8 @@ const StyledLayout = styled.section`
   padding-bottom: 80px;
 `;
 
-
 function GetLaunches() {
   const [selectedProvider, setSelectedProvider] = useState("");
-
 
   const { isLoading, error, data } = useQuery({
     queryKey: ["repoData", selectedProvider],
@@ -31,9 +29,6 @@ function GetLaunches() {
         `https://lldev.thespacedevs.com/2.2.0/launch/upcoming/?format=json&limit=100&offset=10`
       ).then((res) => res.json()),
   });
-
-  
-
 
   if (isLoading) return <div>Loading...</div>;
 
@@ -52,19 +47,15 @@ function GetLaunches() {
     }
   });
 
-
   const handleProviderChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedProvider(e.target.value);
   };
-
 
   const filteredResults = res.results.filter(
     (result) =>
       selectedProvider === "" ||
       result.launch_service_provider.name.includes(selectedProvider)
   );
-  
-
 
   const Cards: any = [];
 
@@ -82,7 +73,6 @@ function GetLaunches() {
     );
   });
 
-
   return (
     <StyledLayout>
       <Header Heading="Typescript-exploration" BackBtnVisable={true} />
@@ -99,20 +89,13 @@ function GetLaunches() {
   );
 }
 
-
-
-
-
-
-
 const Launches = () => {
   const queryClient = new QueryClient();
   return (
     <QueryClientProvider client={queryClient}>
-        <GetLaunches />
+      <GetLaunches />
     </QueryClientProvider>
   );
 };
-
 
 export default Launches;

@@ -21,6 +21,7 @@ const Return = styled.a`
   top: 25px;
   left: 25px;
   width: 99%;
+  z-index: 2;
 `;
 const Button = styled.button`
   width: 10%;
