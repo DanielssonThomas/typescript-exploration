@@ -46,7 +46,7 @@ type FetchSingleResult = {
 type InfoURL = {
   priority: number;
   title: string;
-  description: string;
+  description: string | null;
   feature_image: string | null;
   url: string;
 };
@@ -54,7 +54,7 @@ type InfoURL = {
 type VidURL = {
   priority: number;
   title: string;
-  description: string;
+  description: string | null;
   feature_image: string | null;
   url: string;
 };
@@ -101,21 +101,44 @@ type Status = {
   id: number;
   name: string;
   abbrev: string;
-  description: string;
+  description: string | null;
 };
 
 type NetPrecision = {
   id: number;
   name: string;
   abbrev: string;
-  description: string;
+  description: string | null;
 };
 
 type LaunchServiceProvider = {
   id: number;
   url: string;
   name: string;
+  featured: boolean;
   type: string;
+  country_code: string;
+  abbrev: string;
+  description: string;
+  administrator: string;
+  founding_year: number;
+  launchers: string;
+  spacecraft: string;
+  launch_library_url: string;
+  total_launch_count: string;
+  consecutive_successful_launches: number;
+  successful_launches: number;
+  failed_launches: number;
+  pending_launches: number;
+  consecutive_successful_landings: number;
+  successful_landings: number;
+  failed_landings: number;
+  attempted_landings: number;
+  info_url: string;
+  wiki_url: string;
+  logo_url: string;
+  image_url: string;
+  nation_url: string;
 };
 
 type Rocket = {
@@ -135,7 +158,7 @@ type RocketConfiguration = {
 type Mission = {
   id: number;
   name: string;
-  description: string;
+  description: string | null;
   launch_designator: string | null;
   type: string;
   orbit: MissionOrbit;
@@ -179,7 +202,7 @@ type Program = {
   id: number;
   url: string;
   name: string;
-  description: string;
+  description: string | null;
   agencies: ProgramAgencies[];
   image_url: string;
   start_date: string;

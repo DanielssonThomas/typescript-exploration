@@ -67,7 +67,7 @@ const DetailsWrapper = styled.div`
 
 const Table = styled.table`
   width: 90vw;
-  margin-bottom: 2rem;
+  margin: 0 10vw 2rem 10vw;
   text-align: left;
 `;
 
@@ -93,6 +93,7 @@ const TableDataType = styled.td`
   width: 20%;
   border-right: 1px solid white;
   border-bottom: 1px solid white;
+  padding-left: 1rem;
 `;
 
 const UpdatesWrapper = styled.section`
@@ -190,7 +191,8 @@ function GetLaunch() {
             <div>
               <h2>Window start and end date:</h2>
               <p>
-                {res.window_start} - {res.window_end}
+                {res.window_start.split("T")[0]} -{" "}
+                {res.window_end.split("T")[0]}
               </p>
             </div>
           </TopContentContainer>
@@ -335,6 +337,75 @@ function GetLaunch() {
                   <TableDataType>Name</TableDataType>
                   <TableData>{res.launch_service_provider.name}</TableData>
                 </TableRow>
+                <TableRow>
+                  <TableDataType>Name abbreviation</TableDataType>
+                  <TableData>{res.launch_service_provider.abbrev}</TableData>
+                </TableRow>
+                <TableRow>
+                  <TableDataType>Administrator</TableDataType>
+                  <TableData>
+                    {res.launch_service_provider.administrator}
+                  </TableData>
+                </TableRow>
+                <TableRow>
+                  <TableDataType>Founding year</TableDataType>
+                  <TableData>
+                    {res.launch_service_provider.founding_year}
+                  </TableData>
+                </TableRow>
+                <TableRow>
+                  <TableDataType>Description</TableDataType>
+                  <TableData>
+                    {res.launch_service_provider.description}
+                  </TableData>
+                </TableRow>
+                <TableRow>
+                  <TableDataType>Launchers</TableDataType>
+                  <TableData>{res.launch_service_provider.launchers}</TableData>
+                </TableRow>
+                <TableRow>
+                  <TableDataType>Attempted landings</TableDataType>
+                  <TableData>
+                    {res.launch_service_provider.attempted_landings}
+                  </TableData>
+                </TableRow>
+                <TableRow>
+                  <TableDataType>Successful landings</TableDataType>
+                  <TableData>
+                    {res.launch_service_provider.successful_landings}
+                  </TableData>
+                </TableRow>
+                <TableRow>
+                  <TableDataType>Consecutive successful landings</TableDataType>
+                  <TableData>
+                    {
+                      res.launch_service_provider
+                        .consecutive_successful_landings
+                    }
+                  </TableData>
+                </TableRow>
+                <TableRow>
+                  <TableDataType>Failed landings</TableDataType>
+                  <TableData>
+                    {res.launch_service_provider.failed_landings}
+                  </TableData>
+                </TableRow>
+                <TableRow>
+                  <TableDataType>Consecutive successful launches</TableDataType>
+                  <TableData>
+                    {
+                      res.launch_service_provider
+                        .consecutive_successful_launches
+                    }
+                  </TableData>
+                </TableRow>
+                <TableRow>
+                  <TableDataType>Failed launches</TableDataType>
+                  <TableData>
+                    {res.launch_service_provider.failed_launches}
+                  </TableData>
+                </TableRow>
+
                 <TableRow>
                   <TableDataType>Launch attempts</TableDataType>
                   <TableData>{res.agency_launch_attempt_count}</TableData>

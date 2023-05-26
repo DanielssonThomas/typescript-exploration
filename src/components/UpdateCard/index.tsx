@@ -45,7 +45,7 @@ const Image = styled.img`
 
 const Card = (props: Update) => {
   return (
-    <StyledCard>
+    <StyledCard key={props.id}>
       <Image src={props.profile_image} />
       <ContentContainer>
         <Comment>{props.comment}</Comment>
