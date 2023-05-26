@@ -7,7 +7,6 @@ import {
 import "../components/Launches/ApiResponseTemplate";
 import Card from "../components/LaunchCard";
 import { useState } from "react";
-import Header from "../components/Header";
 
 const EventMessage = styled.div`
   display: flex;
@@ -83,7 +82,6 @@ function GetLaunches() {
 
   return (
     <StyledLayout>
-      <Header Heading="Typescript-exploration" BackBtnVisable={true} />
       <select value={selectedProvider} onChange={handleProviderChange}>
         <option value="">All Providers</option>
         {allProviders.map((provider) => (

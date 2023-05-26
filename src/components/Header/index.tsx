@@ -1,8 +1,9 @@
 import { styled } from "styled-components";
+import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 type Header = {
   Heading: string;
-  BackBtnVisable: boolean;
 };
 
 const HeaderWrapper = styled.header`
@@ -16,7 +17,7 @@ const StyledHeading = styled.h1`
   font-size: xx-large;
 `;
 
-const Return = styled.a`
+const Return = styled(Link)`
   position: fixed;
   top: 25px;
   left: 25px;
@@ -52,23 +53,36 @@ const HeaderShadowing = styled.div`
   z-index: -1;
 `;
 
-const Header = (props: Header) => {
-  const RenderBtnAndShadow = () => {
-    if (props.BackBtnVisable) {
-      return (
-        <>
-          <HeaderShadowing />
-          <Return href="/">
-            <Button>Back</Button>
-          </Return>
-        </>
-      );
-    }
-  };
+const RenderBackBtn = () => {
+  const shouldRenderBtn = useLocation().pathname != "/" ? true : false;
+  const shouldRenderShadow = useLocation().pathname.startsWith("/launch")
+    ? true
+    : false;
 
+  if (shouldRenderBtn && !shouldRenderShadow) {
+    return (
+      <>
+        <Return to="/">
+          <Button>Back</Button>
+        </Return>
+      </>
+    );
+  } else if (shouldRenderBtn && shouldRenderShadow) {
+    return (
+      <>
+        <HeaderShadowing />
+        <Return to="/">
+          <Button>Back</Button>
+        </Return>
+      </>
+    );
+  }
+};
+
+const Header = (props: Header) => {
   return (
     <HeaderWrapper>
-      {RenderBtnAndShadow()}
+      {RenderBackBtn()}
       <StyledHeading>{props.Heading}</StyledHeading>
     </HeaderWrapper>
   );

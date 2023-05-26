@@ -7,6 +7,7 @@ import {
 import "../components/Launches/ApiResponseTemplate";
 import Card from "../components/LaunchCard";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const EventMessage = styled.div`
   display: flex;
@@ -26,7 +27,7 @@ const StyledLayout = styled.section`
   padding-bottom: 80px;
 `;
 
-const MoreCards = styled.a`
+const MoreCards = styled(Link)`
   position: absolute;
   width: 40%;
   bottom: 20px;
@@ -117,7 +118,7 @@ function GetLaunches() {
         ))}
       </select>
       {Cards}
-      <MoreCards href="allRockets">
+      <MoreCards to="allRockets">
         <Button>More Rockets</Button>
       </MoreCards>
     </StyledLayout>

@@ -5,7 +5,6 @@ import {
 } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { styled } from "styled-components";
-import Header from "../components/Header";
 import UpdateCard from "../components/UpdateCard";
 
 const EventMessage = styled.div`
@@ -51,14 +50,14 @@ const TopContentContainer = styled.div`
   padding: 1rem;
 `;
 
-const DetailsContainer = styled.div`
+const TableContainer = styled.div`
   width: 100vw;
   height: auto;
   padding: 1rem;
   background-color: #242424;
 `;
 
-const DetailsWrapper = styled.div`
+const TableWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -152,6 +151,7 @@ function GetLaunch() {
     res.updates.forEach((update) => {
       UpdateCards.push(
         <UpdateCard
+          key={update.id}
           id={update.id}
           profile_image={update.profile_image}
           comment={update.comment}
@@ -167,7 +167,6 @@ function GetLaunch() {
 
   return (
     <>
-      <Header Heading={res.name} BackBtnVisable={true} />
       <Main>
         <TopContentWrapper>
           <Image src={res.image} alt={res.name} />
@@ -189,17 +188,14 @@ function GetLaunch() {
               <p>{res.pad.location.name}</p>
             </div>
             <div>
-              <h2>Window start and end date:</h2>
-              <p>
-                {res.window_start.split("T")[0]} -{" "}
-                {res.window_end.split("T")[0]}
-              </p>
+              <h2>Window start date:</h2>
+              <p>{res.window_start.split("T")[0]}</p>
             </div>
           </TopContentContainer>
         </TopContentWrapper>
 
-        <DetailsContainer>
-          <DetailsWrapper>
+        <TableContainer>
+          <TableWrapper>
             <Table>
               <TableHead>
                 <TableRow>
@@ -416,8 +412,8 @@ function GetLaunch() {
                 </TableRow>
               </tbody>
             </Table>
-          </DetailsWrapper>
-        </DetailsContainer>
+          </TableWrapper>
+        </TableContainer>
 
         <UpdatesWrapper>
           <UpdatesContainer>
