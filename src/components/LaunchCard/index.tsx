@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { styled } from "styled-components";
 
 type CardTemplate = {
@@ -44,7 +45,7 @@ const Title = styled.h2`
 const Description = styled.div`
   position: relative;
 `;
-const ReadMore = styled.a`
+const ReadMore = styled(Link)`
   position: absolute;
   bottom: 0px;
   left: 50%;
@@ -63,8 +64,8 @@ const Button = styled.button`
   font-weight: bold;
   font-size: 24px;
   line-height: 0;
-  transition: .2s ease;
-  &:hover{
+  transition: 0.2s ease;
+  &:hover {
     background-color: #83d6d4;
     cursor: pointer;
   }
@@ -80,9 +81,9 @@ const Card = (props: CardTemplate) => {
           <div>Launch service provider: {props.provider}</div>
           <div>Window start date: {props.start_date}</div>
         </Description>
-          <ReadMore href={`launch/${props.id}`}>
-            <Button>More Information</Button>
-          </ReadMore>
+        <ReadMore to={`launch/${props.id}`}>
+          <Button>More Information</Button>
+        </ReadMore>
       </ContentWrapper>
     </Layout>
   );
