@@ -43,7 +43,7 @@ const Image = styled.img`
   width: 30%;
 `;
 
-const Card = (props: Update) => {
+const Card = (props: Update): JSX.Element => {
   return (
     <StyledCard key={props.id}>
       <Image src={props.profile_image} />

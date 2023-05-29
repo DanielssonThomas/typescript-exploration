@@ -62,7 +62,7 @@ const Button = styled.button`
   }
 `;
 
-const Card = (props: Card) => {
+const Card = (props: Card): JSX.Element => {
   return (
     <Layout>
       <Image src={props.image} alt={props.name} />
