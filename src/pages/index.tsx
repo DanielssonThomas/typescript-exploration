@@ -69,7 +69,7 @@ function GetLaunches() {
 
   if (error) return <EventMessage>An error has occurred</EventMessage>;
 
-  const res: FetchResult = data;
+  const res: FetchAllResult = data;
 
   let allProviders: string[] = [];
 

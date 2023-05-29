@@ -1,4 +1,4 @@
-type FetchResult = {
+type FetchAllResult = {
   count: number;
   next: string;
   previous: string | null;
