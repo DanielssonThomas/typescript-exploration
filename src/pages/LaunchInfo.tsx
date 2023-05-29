@@ -131,24 +131,21 @@ export default function LaunchInfo() {
 
 function GetLaunch() {
   const { id } = useParams();
-  const { isLoading, error, data } = useQuery({
-    queryKey: ["repoData"],
+  const { isLoading, error, data } = useQuery<FetchSingleResult>({
+    queryKey: ["singleLaunchData"],
     queryFn: () =>
       fetch(
         `https://lldev.thespacedevs.com/2.2.0/launch/upcoming/${id}/?format=json`
       ).then((res) => res.json()),
   });
 
-  if (isLoading) return <EventMessage>Loading...</EventMessage>;
+  if (isLoading || !data) return <EventMessage>Loading...</EventMessage>;
 
   if (error) return <EventMessage>An error has occurred</EventMessage>;
 
-  const res: FetchSingleResult = data;
-  console.log(res);
-
   const RenderUpdateCards = () => {
     const UpdateCards: JSX.Element[] = [];
-    res.updates.forEach((update) => {
+    data.updates.forEach((update) => {
       UpdateCards.push(
         <UpdateCard
           key={update.id}
@@ -168,27 +165,27 @@ function GetLaunch() {
     <>
       <Main>
         <TopContentWrapper>
-          <Image src={res.image} alt={res.name} />
+          <Image src={data.image} alt={data.name} />
           <TopContentContainer>
             <div>
               <h2>Description:</h2>
-              <q>{res.mission.description}</q>
+              <q>{data.mission.description}</q>
             </div>
             <div>
               <h2>Launch service provider:</h2>
-              <p>{res.launch_service_provider.name}</p>
+              <p>{data.launch_service_provider.name}</p>
             </div>
             <div>
               <h2>Launch pad:</h2>
-              <p>{res.pad.name}</p>
+              <p>{data.pad.name}</p>
             </div>
             <div>
               <h2>Location:</h2>
-              <p>{res.pad.location.name}</p>
+              <p>{data.pad.location.name}</p>
             </div>
             <div>
               <h2>Window start date:</h2>
-              <p>{res.window_start.split("T")[0]}</p>
+              <p>{data.window_start.split("T")[0]}</p>
             </div>
           </TopContentContainer>
         </TopContentWrapper>
@@ -205,23 +202,23 @@ function GetLaunch() {
               <tbody>
                 <TableRow>
                   <TableDataType>Name</TableDataType>
-                  <TableData>{res.name || "No data"}</TableData>
+                  <TableData>{data.name || "No data"}</TableData>
                 </TableRow>
                 <TableRow>
                   <TableDataType>Image url</TableDataType>
-                  <TableData>{res.image || "No data"}</TableData>
+                  <TableData>{data.image || "No data"}</TableData>
                 </TableRow>
                 <TableRow>
                   <TableDataType>Fail reason</TableDataType>
-                  <TableData>{res.failreason || "No data"}</TableData>
+                  <TableData>{data.failreason || "No data"}</TableData>
                 </TableRow>
                 <TableRow>
                   <TableDataType>Flight club</TableDataType>
-                  <TableData>{res.flightclub_url || "No data"}</TableData>
+                  <TableData>{data.flightclub_url || "No data"}</TableData>
                 </TableRow>
                 <TableRow>
                   <TableDataType>Hold reason</TableDataType>
-                  <TableData>{res.holdreason || "No data"}</TableData>
+                  <TableData>{data.holdreason || "No data"}</TableData>
                 </TableRow>
               </tbody>
             </Table>
@@ -236,33 +233,35 @@ function GetLaunch() {
               <tbody>
                 <TableRow>
                   <TableDataType>Description</TableDataType>
-                  <TableData>{res.mission.description || "No data"}</TableData>
+                  <TableData>{data.mission.description || "No data"}</TableData>
                 </TableRow>
                 <TableRow>
                   <TableDataType>Launch designator</TableDataType>
                   <TableData>
-                    {res.mission.launch_designator || "No data"}
+                    {data.mission.launch_designator || "No data"}
                   </TableData>
                 </TableRow>
                 <TableRow>
                   <TableDataType>Name</TableDataType>
-                  <TableData>{res.mission.name || "No data"}</TableData>
+                  <TableData>{data.mission.name || "No data"}</TableData>
                 </TableRow>
                 <TableRow>
                   <TableDataType>Type</TableDataType>
-                  <TableData>{res.mission.type || "No data"}</TableData>
+                  <TableData>{data.mission.type || "No data"}</TableData>
                 </TableRow>
                 <TableRow>
                   <TableDataType>Orbit name</TableDataType>
-                  <TableData>{res.mission.orbit.name || "No data"}</TableData>
+                  <TableData>{data.mission.orbit.name || "No data"}</TableData>
                 </TableRow>
                 <TableRow>
                   <TableDataType>Orbit abbreviation</TableDataType>
-                  <TableData>{res.mission.orbit.abbrev || "No data"}</TableData>
+                  <TableData>
+                    {data.mission.orbit.abbrev || "No data"}
+                  </TableData>
                 </TableRow>
                 <TableRow>
                   <TableDataType>Id</TableDataType>
-                  <TableData>{res.mission.id || "No data"}</TableData>
+                  <TableData>{data.mission.id || "No data"}</TableData>
                 </TableRow>
               </tbody>
             </Table>
@@ -277,53 +276,55 @@ function GetLaunch() {
               <tbody>
                 <TableRow>
                   <TableDataType>Name</TableDataType>
-                  <TableData>{res.pad.name || "No data"}</TableData>
+                  <TableData>{data.pad.name || "No data"}</TableData>
                 </TableRow>
                 <TableRow>
                   <TableDataType>Location name</TableDataType>
-                  <TableData>{res.pad.location.name || "No data"}</TableData>
+                  <TableData>{data.pad.location.name || "No data"}</TableData>
                 </TableRow>
                 <TableRow>
                   <TableDataType>Country code</TableDataType>
-                  <TableData>{res.pad.country_code || "No data"}</TableData>
+                  <TableData>{data.pad.country_code || "No data"}</TableData>
                 </TableRow>
                 <TableRow>
                   <TableDataType>Wiki url</TableDataType>
                   <TableData>
-                    <a href={res.pad.wiki_url}>
-                      {res.pad.wiki_url || "No data"}
+                    <a href={data.pad.wiki_url}>
+                      {data.pad.wiki_url || "No data"}
                     </a>
                   </TableData>
                 </TableRow>
                 <TableRow>
                   <TableDataType>Longitude</TableDataType>
-                  <TableData>{res.pad.longitude || "No data"}</TableData>
+                  <TableData>{data.pad.longitude || "No data"}</TableData>
                 </TableRow>
                 <TableRow>
                   <TableDataType>Latitude</TableDataType>
-                  <TableData>{res.pad.latitude || "No data"}</TableData>
+                  <TableData>{data.pad.latitude || "No data"}</TableData>
                 </TableRow>
                 <TableRow>
                   <TableDataType>Map url</TableDataType>
                   <TableData>
-                    <a href={res.pad.map_url}>{res.pad.map_url || "No data"}</a>
+                    <a href={data.pad.map_url}>
+                      {data.pad.map_url || "No data"}
+                    </a>
                   </TableData>
                 </TableRow>
                 <TableRow>
                   <TableDataType>Orbital launch attempt count</TableDataType>
                   <TableData>
-                    {res.pad.orbital_launch_attempt_count || "No data"}
+                    {data.pad.orbital_launch_attempt_count || "No data"}
                   </TableData>
                 </TableRow>
                 <TableRow>
                   <TableDataType>Total launch count</TableDataType>
                   <TableData>
-                    {res.pad.total_launch_count || "No data"}
+                    {data.pad.total_launch_count || "No data"}
                   </TableData>
                 </TableRow>
                 <TableRow>
                   <TableDataType>Agency id</TableDataType>
-                  <TableData>{res.pad.agency_id || "No data"}</TableData>
+                  <TableData>{data.pad.agency_id || "No data"}</TableData>
                 </TableRow>
               </tbody>
             </Table>
@@ -339,90 +340,90 @@ function GetLaunch() {
                 <TableRow>
                   <TableDataType>Name</TableDataType>
                   <TableData>
-                    {res.launch_service_provider.name || "No data"}
+                    {data.launch_service_provider.name || "No data"}
                   </TableData>
                 </TableRow>
                 <TableRow>
                   <TableDataType>Name abbreviation</TableDataType>
                   <TableData>
-                    {res.launch_service_provider.abbrev || "No data"}
+                    {data.launch_service_provider.abbrev || "No data"}
                   </TableData>
                 </TableRow>
                 <TableRow>
                   <TableDataType>Administrator</TableDataType>
                   <TableData>
-                    {res.launch_service_provider.administrator || "No data"}
+                    {data.launch_service_provider.administrator || "No data"}
                   </TableData>
                 </TableRow>
                 <TableRow>
                   <TableDataType>Founding year</TableDataType>
                   <TableData>
-                    {res.launch_service_provider.founding_year || "No data"}
+                    {data.launch_service_provider.founding_year || "No data"}
                   </TableData>
                 </TableRow>
                 <TableRow>
                   <TableDataType>Description</TableDataType>
                   <TableData>
-                    {res.launch_service_provider.description || "No data"}
+                    {data.launch_service_provider.description || "No data"}
                   </TableData>
                 </TableRow>
                 <TableRow>
                   <TableDataType>Launchers</TableDataType>
                   <TableData>
-                    {res.launch_service_provider.launchers || "No data"}
+                    {data.launch_service_provider.launchers || "No data"}
                   </TableData>
                 </TableRow>
                 <TableRow>
                   <TableDataType>Attempted landings</TableDataType>
                   <TableData>
-                    {res.launch_service_provider.attempted_landings ||
+                    {data.launch_service_provider.attempted_landings ||
                       "No data"}
                   </TableData>
                 </TableRow>
                 <TableRow>
                   <TableDataType>Successful landings</TableDataType>
                   <TableData>
-                    {res.launch_service_provider.successful_landings ||
+                    {data.launch_service_provider.successful_landings ||
                       "No data"}
                   </TableData>
                 </TableRow>
                 <TableRow>
                   <TableDataType>Consecutive successful landings</TableDataType>
                   <TableData>
-                    {res.launch_service_provider
+                    {data.launch_service_provider
                       .consecutive_successful_landings || "No data"}
                   </TableData>
                 </TableRow>
                 <TableRow>
                   <TableDataType>Failed landings</TableDataType>
                   <TableData>
-                    {res.launch_service_provider.failed_landings || "No data"}
+                    {data.launch_service_provider.failed_landings || "No data"}
                   </TableData>
                 </TableRow>
                 <TableRow>
                   <TableDataType>Consecutive successful launches</TableDataType>
                   <TableData>
-                    {res.launch_service_provider
+                    {data.launch_service_provider
                       .consecutive_successful_launches || "No data"}
                   </TableData>
                 </TableRow>
                 <TableRow>
                   <TableDataType>Failed launches</TableDataType>
                   <TableData>
-                    {res.launch_service_provider.failed_launches || "No data"}
+                    {data.launch_service_provider.failed_launches || "No data"}
                   </TableData>
                 </TableRow>
 
                 <TableRow>
                   <TableDataType>Launch attempts</TableDataType>
                   <TableData>
-                    {res.agency_launch_attempt_count || "No data"}
+                    {data.agency_launch_attempt_count || "No data"}
                   </TableData>
                 </TableRow>
                 <TableRow>
                   <TableDataType>Launch attempts this year</TableDataType>
                   <TableData>
-                    {res.agency_launch_attempt_count_year || "No data"}
+                    {data.agency_launch_attempt_count_year || "No data"}
                   </TableData>
                 </TableRow>
               </tbody>

@@ -1,7 +1,7 @@
 type FetchMultipleQuery = {
   isLoading: boolean;
-  error: Error;
-  data: FetchMultipleResult;
+  error: Error | undefined;
+  data: FetchMultipleResult | undefined;
 };
 
 type FetchSingleQuery = {

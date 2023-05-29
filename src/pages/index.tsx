@@ -57,23 +57,21 @@ function GetLaunches() {
   const [selectedProvider, setSelectedProvider] = useState("");
   const [howManyCards, setHowManyCards] = useState(10);
 
-  const { isLoading, error, data } = useQuery<FetchMultipleQuery>({
-    queryKey: ["repoData", selectedProvider, howManyCards],
+  const { isLoading, error, data } = useQuery<FetchMultipleResult>({
+    queryKey: ["multipleLaunchData", selectedProvider, howManyCards],
     queryFn: () =>
       fetch(
         `https://lldev.thespacedevs.com/2.2.0/launch/upcoming/?format=json&limit=${howManyCards}`
       ).then((res) => res.json()),
   });
 
-  if (isLoading) return <EventMessage>Loading...</EventMessage>;
+  if (isLoading || !data) return <EventMessage>Loading...</EventMessage>;
 
   if (error) return <EventMessage>An error has occurred</EventMessage>;
 
-  const res: FetchMultipleResult = data;
-
   let allProviders: string[] = [];
 
-  res.results.forEach((result) => {
+  data.results.forEach((result) => {
     if (
       result.launch_service_provider.name &&
       !allProviders.includes(result.launch_service_provider.name)
@@ -85,7 +83,7 @@ function GetLaunches() {
     setSelectedProvider(e.target.value);
   };
 
-  const filteredResults = res.results.filter(
+  const filteredResults = data.results.filter(
     (result) =>
       selectedProvider === "" ||
       result.launch_service_provider.name === selectedProvider

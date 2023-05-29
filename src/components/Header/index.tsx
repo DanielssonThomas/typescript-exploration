@@ -61,8 +61,10 @@ const HeaderShadowing = styled.div`
 `;
 
 const RenderBackBtn = () => {
-  const shouldRenderBtn = useLocation().pathname != "/" ? true : false;
-  const shouldRenderShadow = useLocation().pathname.startsWith("/launch")
+  const shouldRenderBtn: boolean = useLocation().pathname != "/" ? true : false;
+  const shouldRenderShadow: boolean = useLocation().pathname.startsWith(
+    "/launch"
+  )
     ? true
     : false;
 
@@ -94,7 +96,7 @@ const RenderBackBtn = () => {
   }
 };
 
-const Header = (props: Header) => {
+const Header = (props: Header): JSX.Element => {
   return (
     <HeaderWrapper>
       {RenderBackBtn()}
