@@ -64,7 +64,7 @@ function GetLaunches() {
       result.launch_service_provider.name.includes(selectedProvider)
   );
 
-  const Cards: any = [];
+  const Cards: JSX.Element[] = [];
 
   filteredResults.forEach((result) => {
     Cards.push(

@@ -146,8 +146,8 @@ function GetLaunch() {
   const res: FetchSingleResult = data;
   console.log(res);
 
-  const UpdateCards: any = [];
   const RenderUpdateCards = () => {
+    const UpdateCards: JSX.Element[] = [];
     res.updates.forEach((update) => {
       UpdateCards.push(
         <UpdateCard
@@ -160,9 +160,8 @@ function GetLaunch() {
           info_url={update.info_url}
         />
       );
-
-      return UpdateCards;
     });
+    return UpdateCards;
   };
 
   return (
@@ -435,10 +434,7 @@ function GetLaunch() {
           <UpdatesContainer>
             <UpdatesH2>Updates</UpdatesH2>
 
-            <UpdatesLayout>
-              {RenderUpdateCards()}
-              {UpdateCards}
-            </UpdatesLayout>
+            <UpdatesLayout>{RenderUpdateCards()}</UpdatesLayout>
           </UpdatesContainer>
         </UpdatesWrapper>
       </Main>
