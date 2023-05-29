@@ -6,6 +6,7 @@ import {
 import { useParams } from "react-router-dom";
 import { styled } from "styled-components";
 import UpdateCard from "../components/UpdateCard";
+import Table from "../components/LaunchTable";
 
 const EventMessage = styled.div`
   display: flex;
@@ -64,37 +65,6 @@ const TableWrapper = styled.div`
   flex-direction: column;
 `;
 
-const Table = styled.table`
-  width: 90vw;
-  margin: 0 10vw 2rem 10vw;
-  text-align: left;
-`;
-
-const TableHead = styled.thead`
-  border-bottom: 1px solid white;
-`;
-
-const TableHeader = styled.th`
-  font-size: xx-large;
-`;
-
-const TableRow = styled.tr`
-  height: 4rem;
-`;
-
-const TableData = styled.td`
-  width: 80%;
-  padding: 1rem;
-  border-bottom: 1px solid white;
-`;
-
-const TableDataType = styled.td`
-  width: 20%;
-  border-right: 1px solid white;
-  border-bottom: 1px solid white;
-  padding-left: 1rem;
-`;
-
 const UpdatesWrapper = styled.section`
   display: flex;
   justify-content: center;
@@ -143,7 +113,7 @@ function GetLaunch() {
 
   if (error) return <EventMessage>An error has occurred</EventMessage>;
 
-  const RenderUpdateCards = () => {
+  const RenderUpdateCards = (): JSX.Element[] => {
     const UpdateCards: JSX.Element[] = [];
     data.updates.forEach((update) => {
       UpdateCards.push(
@@ -160,6 +130,150 @@ function GetLaunch() {
     });
     return UpdateCards;
   };
+
+  const Details: Row[] = [
+    {
+      label: "name",
+      value: data.name,
+    },
+    {
+      label: "image_url",
+      value: data.image,
+    },
+    {
+      label: "flightclub_url",
+      value: data.flightclub_url,
+    },
+    {
+      label: "holdreason",
+      value: data.holdreason,
+    },
+  ];
+
+  const Mission: Row[] = [
+    {
+      label: "Description",
+      value: data.mission.description,
+    },
+    {
+      label: "Launch Designator",
+      value: data.mission.launch_designator,
+    },
+    {
+      label: "Name",
+      value: data.mission.name,
+    },
+    {
+      label: "Type",
+      value: data.mission.type,
+    },
+    {
+      label: "Orbit Name",
+      value: data.mission.orbit.name,
+    },
+    {
+      label: "Orbit abbreviation",
+      value: data.mission.orbit.abbrev,
+    },
+  ];
+
+  const Pad: Row[] = [
+    {
+      label: "Name",
+      value: data.pad.name,
+    },
+    {
+      label: "Location Name",
+      value: data.pad.location.name,
+    },
+    {
+      label: "Country code",
+      value: data.pad.location.country_code,
+    },
+    {
+      label: "Wiki url",
+      value: data.pad.wiki_url,
+    },
+    {
+      label: "Longitude",
+      value: data.pad.longitude,
+    },
+    {
+      label: "Latitude",
+      value: data.pad.latitude,
+    },
+    {
+      label: "Map url",
+      value: data.pad.map_url,
+    },
+    {
+      label: "Orbital launch attempt count",
+      value: data.pad.orbital_launch_attempt_count,
+    },
+    {
+      label: "Total launch count",
+      value: data.pad.total_launch_count,
+    },
+  ];
+
+  const Agency: Row[] = [
+    {
+      label: "Name",
+      value: data.launch_service_provider.name,
+    },
+    {
+      label: "Name abbreviation",
+      value: data.launch_service_provider.abbrev,
+    },
+    {
+      label: "Administrator",
+      value: data.launch_service_provider.administrator,
+    },
+    {
+      label: "Founding year",
+      value: data.launch_service_provider.founding_year,
+    },
+    {
+      label: "Description",
+      value: data.launch_service_provider.description,
+    },
+    {
+      label: "Launchers",
+      value: data.launch_service_provider.launchers,
+    },
+    {
+      label: "Attempted landings",
+      value: data.launch_service_provider.attempted_landings,
+    },
+    {
+      label: "Successful landings",
+      value: data.launch_service_provider.successful_landings,
+    },
+    {
+      label: "Consecutive successful landings",
+      value: data.launch_service_provider.consecutive_successful_landings,
+    },
+    {
+      label: "Failed landings",
+      value: data.launch_service_provider.failed_landings,
+    },
+    {
+      label: "Consecutive successful launches",
+      value: data.launch_service_provider.consecutive_successful_launches,
+    },
+    {
+      label: "Failed launches",
+      value: data.launch_service_provider.failed_launches,
+    },
+    {
+      label: "Launch attempts",
+      value: data.agency_launch_attempt_count,
+    },
+    {
+      label: "Launch attempts this year",
+      value: data.agency_launch_attempt_count_year,
+    },
+  ];
 
   return (
     <>
@@ -188,13 +302,15 @@ function GetLaunch() {
               <p>
                 {data.window_start.split("T")[0]}
                 {(() => {
-                    const currentDate = new Date();
-                    const startDate = new Date(data.window_start);
-                    const timeDiff = startDate.getTime() - currentDate.getTime();
-                    const daysDiff = Math.floor(timeDiff / (1000 * 3600 * 24));
-                    const hoursDiff = Math.floor((timeDiff % (1000 * 3600 * 24)) / (1000 * 3600));
-                    
-                    return ` - (${daysDiff} days, ${hoursDiff} hours remaining)`;
+                  const currentDate = new Date();
+                  const startDate = new Date(data.window_start);
+                  const timeDiff = startDate.getTime() - currentDate.getTime();
+                  const daysDiff = Math.floor(timeDiff / (1000 * 3600 * 24));
+                  const hoursDiff = Math.floor(
+                    (timeDiff % (1000 * 3600 * 24)) / (1000 * 3600)
+                  );
+
+                  return ` - (${daysDiff} days, ${hoursDiff} hours remaining)`;
                 })()}
               </p>
             </div>
@@ -203,245 +319,12 @@ function GetLaunch() {
 
         <TableContainer>
           <TableWrapper>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableHeader>Details:</TableHeader>
-                </TableRow>
-              </TableHead>
-
-              <tbody>
-                <TableRow>
-                  <TableDataType>Name</TableDataType>
-                  <TableData>{data.name || "No data"}</TableData>
-                </TableRow>
-                <TableRow>
-                  <TableDataType>Image url</TableDataType>
-                  <TableData>{data.image || "No data"}</TableData>
-                </TableRow>
-                <TableRow>
-                  <TableDataType>Fail reason</TableDataType>
-                  <TableData>{data.failreason || "No data"}</TableData>
-                </TableRow>
-                <TableRow>
-                  <TableDataType>Flight club</TableDataType>
-                  <TableData>{data.flightclub_url || "No data"}</TableData>
-                </TableRow>
-                <TableRow>
-                  <TableDataType>Hold reason</TableDataType>
-                  <TableData>{data.holdreason || "No data"}</TableData>
-                </TableRow>
-              </tbody>
-            </Table>
-
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableHeader>Mission:</TableHeader>
-                </TableRow>
-              </TableHead>
-
-              <tbody>
-                <TableRow>
-                  <TableDataType>Description</TableDataType>
-                  <TableData>{data.mission.description || "No data"}</TableData>
-                </TableRow>
-                <TableRow>
-                  <TableDataType>Launch designator</TableDataType>
-                  <TableData>
-                    {data.mission.launch_designator || "No data"}
-                  </TableData>
-                </TableRow>
-                <TableRow>
-                  <TableDataType>Name</TableDataType>
-                  <TableData>{data.mission.name || "No data"}</TableData>
-                </TableRow>
-                <TableRow>
-                  <TableDataType>Type</TableDataType>
-                  <TableData>{data.mission.type || "No data"}</TableData>
-                </TableRow>
-                <TableRow>
-                  <TableDataType>Orbit name</TableDataType>
-                  <TableData>{data.mission.orbit.name || "No data"}</TableData>
-                </TableRow>
-                <TableRow>
-                  <TableDataType>Orbit abbreviation</TableDataType>
-                  <TableData>
-                    {data.mission.orbit.abbrev || "No data"}
-                  </TableData>
-                </TableRow>
-                <TableRow>
-                  <TableDataType>Id</TableDataType>
-                  <TableData>{data.mission.id || "No data"}</TableData>
-                </TableRow>
-              </tbody>
-            </Table>
-
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableHeader>Pad</TableHeader>
-                </TableRow>
-              </TableHead>
-
-              <tbody>
-                <TableRow>
-                  <TableDataType>Name</TableDataType>
-                  <TableData>{data.pad.name || "No data"}</TableData>
-                </TableRow>
-                <TableRow>
-                  <TableDataType>Location name</TableDataType>
-                  <TableData>{data.pad.location.name || "No data"}</TableData>
-                </TableRow>
-                <TableRow>
-                  <TableDataType>Country code</TableDataType>
-                  <TableData>{data.pad.country_code || "No data"}</TableData>
-                </TableRow>
-                <TableRow>
-                  <TableDataType>Wiki url</TableDataType>
-                  <TableData>
-                    <a href={data.pad.wiki_url}>
-                      {data.pad.wiki_url || "No data"}
-                    </a>
-                  </TableData>
-                </TableRow>
-                <TableRow>
-                  <TableDataType>Longitude</TableDataType>
-                  <TableData>{data.pad.longitude || "No data"}</TableData>
-                </TableRow>
-                <TableRow>
-                  <TableDataType>Latitude</TableDataType>
-                  <TableData>{data.pad.latitude || "No data"}</TableData>
-                </TableRow>
-                <TableRow>
-                  <TableDataType>Map url</TableDataType>
-                  <TableData>
-                    <a href={data.pad.map_url}>
-                      {data.pad.map_url || "No data"}
-                    </a>
-                  </TableData>
-                </TableRow>
-                <TableRow>
-                  <TableDataType>Orbital launch attempt count</TableDataType>
-                  <TableData>
-                    {data.pad.orbital_launch_attempt_count || "No data"}
-                  </TableData>
-                </TableRow>
-                <TableRow>
-                  <TableDataType>Total launch count</TableDataType>
-                  <TableData>
-                    {data.pad.total_launch_count || "No data"}
-                  </TableData>
-                </TableRow>
-                <TableRow>
-                  <TableDataType>Agency id</TableDataType>
-                  <TableData>{data.pad.agency_id || "No data"}</TableData>
-                </TableRow>
-              </tbody>
-            </Table>
-
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableHeader>Agency</TableHeader>
-                </TableRow>
-              </TableHead>
-
-              <tbody>
-                <TableRow>
-                  <TableDataType>Name</TableDataType>
-                  <TableData>
-                    {data.launch_service_provider.name || "No data"}
-                  </TableData>
-                </TableRow>
-                <TableRow>
-                  <TableDataType>Name abbreviation</TableDataType>
-                  <TableData>
-                    {data.launch_service_provider.abbrev || "No data"}
-                  </TableData>
-                </TableRow>
-                <TableRow>
-                  <TableDataType>Administrator</TableDataType>
-                  <TableData>
-                    {data.launch_service_provider.administrator || "No data"}
-                  </TableData>
-                </TableRow>
-                <TableRow>
-                  <TableDataType>Founding year</TableDataType>
-                  <TableData>
-                    {data.launch_service_provider.founding_year || "No data"}
-                  </TableData>
-                </TableRow>
-                <TableRow>
-                  <TableDataType>Description</TableDataType>
-                  <TableData>
-                    {data.launch_service_provider.description || "No data"}
-                  </TableData>
-                </TableRow>
-                <TableRow>
-                  <TableDataType>Launchers</TableDataType>
-                  <TableData>
-                    {data.launch_service_provider.launchers || "No data"}
-                  </TableData>
-                </TableRow>
-                <TableRow>
-                  <TableDataType>Attempted landings</TableDataType>
-                  <TableData>
-                    {data.launch_service_provider.attempted_landings ||
-                      "No data"}
-                  </TableData>
-                </TableRow>
-                <TableRow>
-                  <TableDataType>Successful landings</TableDataType>
-                  <TableData>
-                    {data.launch_service_provider.successful_landings ||
-                      "No data"}
-                  </TableData>
-                </TableRow>
-                <TableRow>
-                  <TableDataType>Consecutive successful landings</TableDataType>
-                  <TableData>
-                    {data.launch_service_provider
-                      .consecutive_successful_landings || "No data"}
-                  </TableData>
-                </TableRow>
-                <TableRow>
-                  <TableDataType>Failed landings</TableDataType>
-                  <TableData>
-                    {data.launch_service_provider.failed_landings || "No data"}
-                  </TableData>
-                </TableRow>
-                <TableRow>
-                  <TableDataType>Consecutive successful launches</TableDataType>
-                  <TableData>
-                    {data.launch_service_provider
-                      .consecutive_successful_launches || "No data"}
-                  </TableData>
-                </TableRow>
-                <TableRow>
-                  <TableDataType>Failed launches</TableDataType>
-                  <TableData>
-                    {data.launch_service_provider.failed_launches || "No data"}
-                  </TableData>
-                </TableRow>
-
-                <TableRow>
-                  <TableDataType>Launch attempts</TableDataType>
-                  <TableData>
-                    {data.agency_launch_attempt_count || "No data"}
-                  </TableData>
-                </TableRow>
-                <TableRow>
-                  <TableDataType>Launch attempts this year</TableDataType>
-                  <TableData>
-                    {data.agency_launch_attempt_count_year || "No data"}
-                  </TableData>
-                </TableRow>
-              </tbody>
-            </Table>
+            <Table label="Details" rowData={Details} />
+            <Table label="Mission" rowData={Mission} />
+            <Table label="Pad" rowData={Pad} />
+            <Table label="Agency" rowData={Agency} />
           </TableWrapper>
         </TableContainer>
-
         <UpdatesWrapper>
           <UpdatesContainer>
             <UpdatesH2>Updates</UpdatesH2>
