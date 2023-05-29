@@ -81,7 +81,7 @@ const Card = (props: CardTemplate) => {
           <div>Launch service provider: {props.provider}</div>
           <div>Window start date: {props.start_date}</div>
         </Description>
-        <ReadMore to={`launch/${props.id}`}>
+        <ReadMore to={`/launch/${props.id}`}>
           <Button>More Information</Button>
         </ReadMore>
       </ContentWrapper>
