@@ -4,7 +4,7 @@ import {
   QueryClientProvider,
   useQuery,
 } from "@tanstack/react-query";
-import "../components/Launches/ApiResponseTemplate";
+import "../Types/FetchTypes";
 import Card from "../components/LaunchCard";
 import { useState } from "react";
 

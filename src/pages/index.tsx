@@ -4,7 +4,7 @@ import {
   QueryClientProvider,
   useQuery,
 } from "@tanstack/react-query";
-import "../components/Launches/ApiResponseTemplate";
+import "../Types/FetchTypes";
 import Card from "../components/LaunchCard";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -70,8 +70,6 @@ function GetLaunches() {
   if (error) return <EventMessage>An error has occurred</EventMessage>;
 
   const res: FetchResult = data;
-
-  
 
   let allProviders: string[] = [];
 
