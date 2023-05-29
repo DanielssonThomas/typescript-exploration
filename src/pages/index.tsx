@@ -29,11 +29,12 @@ const StyledLayout = styled.section`
 
 const MoreCards = styled(Link)`
   position: absolute;
-  width: 40%;
+  width: 300px;
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
 `;
+
 const Button = styled.button`
   width: 100%;
   height: 40px;
@@ -70,6 +71,8 @@ function GetLaunches() {
 
   const res: FetchResult = data;
 
+  
+
   let allProviders: string[] = [];
 
   res.results.forEach((result) => {
@@ -80,7 +83,6 @@ function GetLaunches() {
       allProviders.push(result.launch_service_provider.name);
     }
   });
-
   const handleProviderChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedProvider(e.target.value);
   };

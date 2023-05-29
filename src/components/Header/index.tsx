@@ -21,7 +21,14 @@ const Return = styled(Link)`
   position: fixed;
   top: 25px;
   left: 25px;
-  width: 99%;
+  width: 1400px;
+  z-index: 2;
+`;
+const Back = styled.a`
+  position: fixed;
+  top: 25px;
+  left: 25px;
+  width: 1400px;
   z-index: 2;
 `;
 const Button = styled.button`
@@ -60,6 +67,7 @@ const RenderBackBtn = (props: any) => {
     : false;
 
   if (shouldRenderBtn && !shouldRenderShadow) {
+    //all rockets
     return (
       <>
         <Return to="/">
@@ -68,13 +76,13 @@ const RenderBackBtn = (props: any) => {
       </>
     );
   } else if (shouldRenderBtn && shouldRenderShadow) {
+    //single page
     return (
       <>
+        <Back>
+          <Button onClick={()=>{history.back()}}>back</Button>
+        </Back>
         <HeaderShadowing />
-        <button onClick = {() => history.back()} >return</button>
-        <Return to="/">
-          <Button>Back</Button>
-        </Return>
       </>
     );
   }
