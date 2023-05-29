@@ -55,7 +55,7 @@ const Button = styled.button`
 
 function GetLaunches() {
   const [selectedProvider, setSelectedProvider] = useState("");
-  const [howManyCards, setHowManyCards] = useState(3);
+  const [howManyCards, setHowManyCards] = useState(10);
 
   const { isLoading, error, data } = useQuery({
     queryKey: ["repoData", selectedProvider, howManyCards],
@@ -119,7 +119,7 @@ function GetLaunches() {
       </select>
       {Cards}
       <MoreCards>
-        <Button onClick={()=>{setHowManyCards(howManyCards + 2)}}>More rockets</Button>
+        <Button onClick={()=>{setHowManyCards(howManyCards + 5)}}>More rockets</Button>
       </MoreCards>
     </StyledLayout>
   );
