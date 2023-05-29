@@ -60,7 +60,7 @@ const HeaderShadowing = styled.div`
   z-index: -1;
 `;
 
-const RenderBackBtn = (props: any) => {
+const RenderBackBtn = () => {
   const shouldRenderBtn = useLocation().pathname != "/" ? true : false;
   const shouldRenderShadow = useLocation().pathname.startsWith("/launch")
     ? true
@@ -80,7 +80,13 @@ const RenderBackBtn = (props: any) => {
     return (
       <>
         <Back>
-          <Button onClick={()=>{history.back()}}>back</Button>
+          <Button
+            onClick={() => {
+              history.back();
+            }}
+          >
+            back
+          </Button>
         </Back>
         <HeaderShadowing />
       </>
@@ -91,7 +97,7 @@ const RenderBackBtn = (props: any) => {
 const Header = (props: Header) => {
   return (
     <HeaderWrapper>
-      {RenderBackBtn(props)}
+      {RenderBackBtn()}
       <StyledHeading>{props.Heading}</StyledHeading>
     </HeaderWrapper>
   );

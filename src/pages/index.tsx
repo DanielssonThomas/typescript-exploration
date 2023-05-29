@@ -57,7 +57,7 @@ function GetLaunches() {
   const [selectedProvider, setSelectedProvider] = useState("");
   const [howManyCards, setHowManyCards] = useState(10);
 
-  const { isLoading, error, data } = useQuery({
+  const { isLoading, error, data } = useQuery<FetchMultipleQuery>({
     queryKey: ["repoData", selectedProvider, howManyCards],
     queryFn: () =>
       fetch(
