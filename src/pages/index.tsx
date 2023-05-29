@@ -7,7 +7,6 @@ import {
 import "../Types/FetchTypes";
 import Card from "../components/LaunchCard";
 import { useState } from "react";
-import { Link } from "react-router-dom";
 
 const EventMessage = styled.div`
   display: flex;
@@ -27,7 +26,7 @@ const StyledLayout = styled.section`
   padding-bottom: 80px;
 `;
 
-const MoreCards = styled(Link)`
+const MoreCards = styled.a`
   position: absolute;
   width: 300px;
   bottom: 20px;
@@ -56,12 +55,13 @@ const Button = styled.button`
 
 function GetLaunches() {
   const [selectedProvider, setSelectedProvider] = useState("");
+  const [howManyCards, setHowManyCards] = useState(3);
 
   const { isLoading, error, data } = useQuery({
-    queryKey: ["repoData", selectedProvider],
+    queryKey: ["repoData", selectedProvider, howManyCards],
     queryFn: () =>
       fetch(
-        `https://lldev.thespacedevs.com/2.2.0/launch/upcoming/?format=json`
+        `https://lldev.thespacedevs.com/2.2.0/launch/upcoming/?format=json&limit=${howManyCards}`
       ).then((res) => res.json()),
   });
 
@@ -118,8 +118,8 @@ function GetLaunches() {
         ))}
       </select>
       {Cards}
-      <MoreCards to="allRockets">
-        <Button>More Rockets</Button>
+      <MoreCards>
+        <Button onClick={()=>{setHowManyCards(howManyCards + 2)}}>More rockets</Button>
       </MoreCards>
     </StyledLayout>
   );
