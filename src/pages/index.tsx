@@ -69,7 +69,7 @@ function GetLaunches() {
 
   if (error) return <EventMessage>An error has occurred</EventMessage>;
 
-  const res: FetchAllResult = data;
+  const res: FetchMultipleResult = data;
 
   let allProviders: string[] = [];
 
@@ -119,7 +119,13 @@ function GetLaunches() {
       </select>
       {Cards}
       <MoreCards>
-        <Button onClick={()=>{setHowManyCards(howManyCards + 5)}}>More rockets</Button>
+        <Button
+          onClick={() => {
+            setHowManyCards(howManyCards + 5);
+          }}
+        >
+          More rockets
+        </Button>
       </MoreCards>
     </StyledLayout>
   );

@@ -1,15 +1,6 @@
 import { Link } from "react-router-dom";
 import { styled } from "styled-components";
 
-type CardTemplate = {
-  name: string;
-  image: string;
-  start_date: string;
-  end_date: string;
-  id: string;
-  provider: string;
-};
-
 const Layout = styled.div`
   display: flex;
   width: 90vw;
@@ -71,7 +62,7 @@ const Button = styled.button`
   }
 `;
 
-const Card = (props: CardTemplate) => {
+const Card = (props: Card) => {
   return (
     <Layout>
       <Image src={props.image} alt={props.name} />
