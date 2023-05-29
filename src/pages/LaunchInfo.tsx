@@ -185,7 +185,18 @@ function GetLaunch() {
             </div>
             <div>
               <h2>Window start date:</h2>
-              <p>{data.window_start.split("T")[0]}</p>
+              <p>
+                {data.window_start.split("T")[0]}
+                {(() => {
+                    const currentDate = new Date();
+                    const startDate = new Date(data.window_start);
+                    const timeDiff = startDate.getTime() - currentDate.getTime();
+                    const daysDiff = Math.floor(timeDiff / (1000 * 3600 * 24));
+                    const hoursDiff = Math.floor((timeDiff % (1000 * 3600 * 24)) / (1000 * 3600));
+                    
+                    return ` - (${daysDiff} days, ${hoursDiff} hours remaining)`;
+                })()}
+              </p>
             </div>
           </TopContentContainer>
         </TopContentWrapper>
