@@ -17,20 +17,22 @@ const StyledHeading = styled.h1`
   font-size: xx-large;
 `;
 
-const Return = styled(Link)`
+const ReturnLink = styled(Link)`
   position: fixed;
   top: 25px;
   left: 25px;
   width: 1400px;
   z-index: 2;
 `;
-const Back = styled.a`
+
+const BackLink = styled.a`
   position: fixed;
   top: 25px;
   left: 25px;
   width: 1400px;
   z-index: 2;
 `;
+
 const Button = styled.button`
   width: 10%;
   height: 40px;
@@ -72,16 +74,16 @@ const RenderBackBtn = () => {
     //all rockets
     return (
       <>
-        <Return to="/">
+        <ReturnLink to="/">
           <Button>Back</Button>
-        </Return>
+        </ReturnLink>
       </>
     );
   } else if (shouldRenderBtn && shouldRenderShadow) {
     //single page
     return (
       <>
-        <Back>
+        <BackLink>
           <Button
             onClick={() => {
               history.back();
@@ -89,7 +91,7 @@ const RenderBackBtn = () => {
           >
             back
           </Button>
-        </Back>
+        </BackLink>
         <HeaderShadowing />
       </>
     );

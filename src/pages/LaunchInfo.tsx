@@ -100,7 +100,7 @@ export default function LaunchInfo() {
 }
 
 function GetLaunch() {
-  const { id } = useParams();
+  const { id } = useParams<string>();
   const { isLoading, error, data } = useQuery<FetchSingleResult>({
     queryKey: ["singleLaunchData"],
     queryFn: () =>
@@ -301,12 +301,15 @@ function GetLaunch() {
               <h2>Window start date:</h2>
               <p>
                 {data.window_start.split("T")[0]}
-                {(() => {
-                  const currentDate = new Date();
-                  const startDate = new Date(data.window_start);
-                  const timeDiff = startDate.getTime() - currentDate.getTime();
-                  const daysDiff = Math.floor(timeDiff / (1000 * 3600 * 24));
-                  const hoursDiff = Math.floor(
+                {((): string => {
+                  const currentDate: Date = new Date();
+                  const startDate: Date = new Date(data.window_start);
+                  const timeDiff: number =
+                    startDate.getTime() - currentDate.getTime();
+                  const daysDiff: number = Math.floor(
+                    timeDiff / (1000 * 3600 * 24)
+                  );
+                  const hoursDiff: number = Math.floor(
                     (timeDiff % (1000 * 3600 * 24)) / (1000 * 3600)
                   );
 

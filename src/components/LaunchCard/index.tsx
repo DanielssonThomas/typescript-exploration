@@ -7,7 +7,6 @@ const Layout = styled.div`
   height: 400px;
   border-radius: 50px 0 50px 0;
   background-color: #5f5f5f;
-  border: 10px solid #5f5f5f;
 `;
 
 const Image = styled.img`
@@ -36,6 +35,7 @@ const Title = styled.h2`
 const Description = styled.div`
   position: relative;
 `;
+
 const ReadMore = styled(Link)`
   position: absolute;
   bottom: 0px;
@@ -43,6 +43,7 @@ const ReadMore = styled(Link)`
   transform: translateX(-49.5%);
   width: 99%;
 `;
+
 const Button = styled.button`
   width: 100%;
   height: 40px;

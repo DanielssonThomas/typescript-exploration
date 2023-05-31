@@ -6,7 +6,7 @@ import {
 } from "@tanstack/react-query";
 import "../Types/FetchTypes";
 import Card from "../components/LaunchCard";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
 const EventMessage = styled.div`
   display: flex;
@@ -54,8 +54,14 @@ const Button = styled.button`
 `;
 
 function GetLaunches() {
-  const [selectedProvider, setSelectedProvider] = useState("");
-  const [howManyCards, setHowManyCards] = useState(10);
+  const [selectedProvider, setSelectedProvider]: [
+    string,
+    Dispatch<SetStateAction<string>>
+  ] = useState<string>("");
+  const [howManyCards, setHowManyCards]: [
+    number,
+    Dispatch<SetStateAction<number>>
+  ] = useState<number>(10);
 
   const { isLoading, error, data } = useQuery<FetchMultipleResult>({
     queryKey: ["multipleLaunchData", selectedProvider, howManyCards],
@@ -69,7 +75,7 @@ function GetLaunches() {
 
   if (error) return <EventMessage>An error has occurred</EventMessage>;
 
-  let allProviders: string[] = [];
+  let allProviders: Array<string> = [];
 
   data.results.forEach((result) => {
     if (
@@ -79,6 +85,7 @@ function GetLaunches() {
       allProviders.push(result.launch_service_provider.name);
     }
   });
+
   const handleProviderChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedProvider(e.target.value);
   };
@@ -89,7 +96,7 @@ function GetLaunches() {
       result.launch_service_provider.name === selectedProvider
   );
 
-  const Cards: JSX.Element[] = [];
+  const Cards: Array<JSX.Element> = [];
 
   filteredResults.forEach((result) => {
     Cards.push(
