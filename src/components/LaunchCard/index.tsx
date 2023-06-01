@@ -38,10 +38,10 @@ const Description = styled.div`
 
 const ReadMore = styled(Link)`
   position: absolute;
-  bottom: 0px;
+  bottom: 10px;
   left: 50%;
-  transform: translateX(-49.5%);
-  width: 99%;
+  transform: translateX(-50%);
+  width: 98%;
 `;
 
 const Button = styled.button`
