@@ -25,6 +25,7 @@ const ContentWrapper = styled.section`
 `;
 
 const Title = styled.h2`
+  padding-top: 10px;
   margin: 0;
   font-size: 42px;
   line-height: 1;
